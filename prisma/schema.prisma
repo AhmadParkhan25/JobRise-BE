@@ -1,0 +1,86 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model users {
+  id               Int      @id @default(autoincrement())
+  name             String
+  email            String   @unique
+  password         String
+  confirm_password String
+  email_verified   EmailVerifiedStatus
+  role             Role
+  createdAt        DateTime @default(now())
+  updateAt         DateTime @updatedAt
+
+  Profile profiles[]
+  Company company[]
+  Cv cv[]
+}
+
+model roles {
+  id   Int    @id
+  name String
+}
+
+model profiles {
+  id        String @id @default(uuid())
+  user_id   Int
+  full_name String
+  bio       String
+  adress    String
+  image     String
+  phone     String
+  age       Int
+  education String
+
+  user users  @relation(fields: [user_id],references: [id], onDelete: Cascade)
+}
+
+model company {
+  id Int @id @default(autoincrement())
+  user_id Int
+  company_name String
+  address String
+  logo String
+  website String
+  industry String
+  description String
+
+  user users @relation(fields: [user_id], references: [id], onDelete: Cascade)
+}
+
+model cv {
+  id Int @id @default(autoincrement())
+  user_id Int
+  name String
+  email String
+  phone String
+  linkedIn String
+  portofolio_url String
+  city String
+  bio String
+
+  user users @relation(fields: [user_id], references: [id], onDelete: Cascade)
+}
+
+enum EmailVerifiedStatus {
+  yes
+  no
+}
+
+enum Role {
+  user
+  company
+}
