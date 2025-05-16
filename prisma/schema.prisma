@@ -14,19 +14,20 @@ datasource db {
 }
 
 model users {
-  id               Int      @id @default(autoincrement())
+  id               Int                 @id @default(autoincrement())
   name             String
-  email            String   @unique
+  email            String              @unique
   password         String
   confirm_password String
   email_verified   EmailVerifiedStatus
+  otp              String?             @default("")
   role             Role
-  createdAt        DateTime @default(now())
-  updateAt         DateTime @updatedAt
+  createdAt        DateTime            @default(now())
+  updateAt         DateTime            @updatedAt()
 
-  Profile profiles[]
-  Company company[]
-  Cv cv[]
+  Profile profiles?
+  Company company?
+  Cv      cv?
 }
 
 model roles {
@@ -35,42 +36,41 @@ model roles {
 }
 
 model profiles {
-  id        String @id @default(uuid())
-  user_id   Int
+  id        Int    @id @default(autoincrement())
+  user_id   Int    @unique
   full_name String
-  bio       String
+  age       String
   adress    String
   image     String
   phone     String
-  age       Int
-  education String
+  bio       String
 
-  user users  @relation(fields: [user_id],references: [id], onDelete: Cascade)
+  user users @relation(fields: [user_id], references: [id], onDelete: Cascade)
 }
 
 model company {
-  id Int @id @default(autoincrement())
-  user_id Int
+  id           Int    @id @default(autoincrement())
+  user_id      Int    @unique
   company_name String
-  address String
-  logo String
-  website String
-  industry String
-  description String
+  address      String
+  logo         String
+  website      String
+  industry     String
+  description  String
 
   user users @relation(fields: [user_id], references: [id], onDelete: Cascade)
 }
 
 model cv {
-  id Int @id @default(autoincrement())
-  user_id Int
-  name String
-  email String
-  phone String
-  linkedIn String
+  id             Int    @id @default(autoincrement())
+  user_id        Int    @unique
+  name           String
+  email          String
+  phone          String
+  linkedIn       String
   portofolio_url String
-  city String
-  bio String
+  city           String
+  bio            String
 
   user users @relation(fields: [user_id], references: [id], onDelete: Cascade)
 }

@@ -16,5 +16,3 @@ prisma mysql to local .sql
 2. npx prisma db push
 2. mysql -u user -p nama_database < ./db.sql
 2. npx prisma db pull
-
-

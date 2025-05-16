@@ -29,14 +29,14 @@ async function login(req = request, res = response) {
     }
 
      // jwt
-     const key = process.env.JWT_SECRET_KEY;
-     const token = jwt.sign({ userId: findUser.id }, key, { expiresIn: "1d" });
-     res.status(200).json({
-       status: "success",
-       message: "Login Successfully",
-       token: token,
-       role: Role.user,
-     });
+    const key = process.env.JWT_SECRET_KEY;
+    const token = jwt.sign({ userId: findUser.id }, key, { expiresIn: "1d" });
+    res.status(200).json({
+      status: "success",
+      message: "Login Successfully",
+      token: token,
+      role: Role.user,
+    });
   } catch (error) {
     console.log(error);
     res.status(500).json({

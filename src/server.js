@@ -2,7 +2,7 @@ import express from "express";
 import cors from "cors";
 import env from "dotenv";
 import authRoute from "./routes/authRoute";
-// import path from "path";
+import path from "path";
 
 // configuration
 const app = express();
@@ -20,6 +20,16 @@ app.use(
   express.urlencoded({
     extended: "true",
   })
+)
+
+app.use(
+  "/public",
+  express.static(path.join(__dirname, "../public/img_ProfileUser"))
+)
+
+app.use(
+  "/public",
+  express.static(path.join(__dirname, "../public/img_ProfileCompany"))
 )
 
 

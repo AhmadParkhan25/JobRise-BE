@@ -4,6 +4,11 @@ import { getUsers } from "../controllers/auth/getUsers";
 import { validateMiddleUser } from "../middleware/validateMiddleUser";
 import { getUserByAuth } from "../controllers/auth/getUserByAuth";
 import { login, loginCompany } from "../controllers/auth/login";
+import { chatbot } from "../controllers/chatbot/chatbot";
+import { emailVerification } from "../controllers/auth/emailVerification";
+import { profileUser, upload } from "../controllers/profiles/profile";
+import { CompanyOnly } from "../middleware/companyOnly";
+import { profileCompany } from "../controllers/profiles/profileCompany";
 
 const authRoute = new Router();
 
@@ -24,6 +29,18 @@ authRoute.get('/api/users', getUsers);
 
 // Get user by Auth
 authRoute.get('/api/user-auth', validateMiddleUser, getUserByAuth);
+
+// email verification
+authRoute.post('/api/email-verification', validateMiddleUser, emailVerification);
+
+// chatbot
+authRoute.post('/api/chatbot', validateMiddleUser, chatbot);
+
+// ProfileUser
+authRoute.post('/api/profile', upload.single("image"), validateMiddleUser, profileUser );
+
+// ProfileCompany
+authRoute.post('/api/profile-company',upload.single("logo"), validateMiddleUser, CompanyOnly, profileCompany);
 
 
 
