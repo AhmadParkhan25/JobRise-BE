@@ -2,6 +2,7 @@ import { request, response } from "express";
 import db from "../../connector";
 import multer from "multer";
 import path from "path";
+import fs from "fs";
 
 // konfig path penyimpanan
 const uploadDir = path.resolve(__dirname, "../../../public/imageProfile");
@@ -12,8 +13,8 @@ const storage = multer.diskStorage({
     cb(null, uploadDir);
   },
   filename: (req, file, cb) => {
-    const nameCompany = req.body.company_name || req.body.userId;
-    const randomDataProfile = nameCompany.replace(/[^a-zA-Z0-9]/g, "_");
+    const phone = req.body.phone || req.body.userId;
+    const randomDataProfile = phone.replace(/[^a-zA-Z0-9]/g, "_");
 
     cb(null, randomDataProfile + path.extname(file.originalname));
   },
@@ -30,7 +31,7 @@ const fileFilter = (req, file, cb) => {
 };
 
 // konfigurasi multer untuk upload image
-const uploadCompany = multer({
+const uploadUser = multer({
   storage: storage,
   fileFilter: fileFilter,
   limits: {
@@ -38,52 +39,50 @@ const uploadCompany = multer({
   },
 });
 
-async function profileCompany(req = request, res = response) {
-  const { company_name, address, website, industry, description } = req.body;
+async function profileUser(req = request, res = response) {
+  const { full_name, bio, adress, phone, age } = req.body;
   try {
     const userId = req.userId;
 
-    // validation
-    if(!company_name) {
+    // Validation
+    if(!phone) {
       return res.status(400).json({
         status: "error",
-        message: "Company Name Harus di isi"
+        message: "Nomor Handphone harus di isi"
       })
     };
 
-    const existingCompanyName = await db.company.findFirst({
+    const existingPhone = await db.profiles.findFirst({
       where: {
-        company_name: company_name,
+        phone: phone,
       }
     });
-    if (existingCompanyName){
+    if(existingPhone){
       return res.status(400).json({
         status: "error",
-        message: "Company Name Sudah ada, coba ganti nama lain"
+        message: "Nomor Handpone sudah terdaftar, coba nomor lain"
       })
     }
-    const existingUserID =  await db.company.findUnique({
-      where: {
-        user_id: userId
-      }
-    });
-    if(existingUserID){
-      return res.status(400).json({
-        status: "error",
-        message: "Profile user ini sudah di buat, tolong update aja"
-      })
-    }
+    // validation untuk user_id: userId, yg sudah di create ga bisa create lagi
+    // TODO
 
-    const response = await db.company.create({
+    // Rename file pakai phone
+    const oldPath = path.join(uploadDir, req.file.filename);
+    const newFileName = phone + path.extname(req.file.originalname);
+    const newPath = path.join(uploadDir, newFileName);
+
+    fs.renameSync(oldPath, newPath); // Rename file
+
+    const response = await db.profiles.create({
       data: {
-        company_name,
-        address,
-        logo: req.file.filename,
-        website,
-        industry,
-        description,
+        full_name,
+        bio,
+        adress,
+        image: newFileName,
+        phone,
+        age,
         user_id: userId,
-      }
+      },
     });
     res.status(201).json({
       status: "success",
@@ -98,5 +97,4 @@ async function profileCompany(req = request, res = response) {
   }
 }
 
-
-export { profileCompany, uploadCompany }
+export { profileUser , uploadUser};

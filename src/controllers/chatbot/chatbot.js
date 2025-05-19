@@ -21,7 +21,6 @@ async function chatbot(req = request, res = response) {
     // Ambil hanya field "response" dari hasil ML
     const aiResponse = mlResponse.data.response;
 
-    // Kirim ke frontend/user
     res.status(200).json({
       status: "success",
       message: aiResponse,

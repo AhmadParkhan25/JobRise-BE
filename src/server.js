@@ -3,6 +3,7 @@ import cors from "cors";
 import env from "dotenv";
 import authRoute from "./routes/authRoute";
 import path from "path";
+import profileRoute from "./routes/profileRoute";
 
 // configuration
 const app = express();
@@ -35,6 +36,7 @@ app.use(
 
 // routes
 app.use(authRoute);
+app.use(profileRoute);
 
 
 app.listen(PORT, () => {

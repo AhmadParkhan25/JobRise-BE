@@ -27,7 +27,6 @@ model users {
 
   Profile profiles?
   Company company?
-  Cv      cv?
 }
 
 model roles {
@@ -36,14 +35,19 @@ model roles {
 }
 
 model profiles {
-  id        Int    @id @default(autoincrement())
-  user_id   Int    @unique
-  full_name String
-  age       String
-  adress    String
-  image     String
-  phone     String
-  bio       String
+  id             Int     @id @default(autoincrement())
+  user_id        Int     @unique
+  username       String?
+  email          String?
+  full_name      String
+  age            String
+  address        String
+  image          String
+  phone          String
+  bio            String
+  linkedin       String?
+  portofolio_url String?
+  city           String?
 
   user users @relation(fields: [user_id], references: [id], onDelete: Cascade)
 }
@@ -58,21 +62,22 @@ model company {
   industry     String
   description  String
 
-  user users @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  job  jobs[]
+  user users  @relation(fields: [user_id], references: [id], onDelete: Cascade)
 }
 
-model cv {
-  id             Int    @id @default(autoincrement())
-  user_id        Int    @unique
-  name           String
-  email          String
-  phone          String
-  linkedIn       String
-  portofolio_url String
-  city           String
-  bio            String
+model jobs {
+  id          Int    @id @default(autoincrement())
+  companyId   Int
+  title       String
+  description String
+  salary_min  String
+  salary_max  String
+  location    String
+  job_type    String
+  is_active   IsActive
 
-  user users @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  company company @relation(fields: [companyId], references: [id], onDelete: Cascade)
 }
 
 enum EmailVerifiedStatus {
@@ -83,4 +88,9 @@ enum EmailVerifiedStatus {
 enum Role {
   user
   company
+}
+
+enum IsActive {
+  active
+  deactive
 }
