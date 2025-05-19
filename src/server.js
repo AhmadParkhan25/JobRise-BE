@@ -4,6 +4,7 @@ import env from "dotenv";
 import authRoute from "./routes/authRoute";
 import path from "path";
 import profileRoute from "./routes/profileRoute";
+import jobsRoute from "./routes/jobsRoute";
 
 // configuration
 const app = express();
@@ -37,6 +38,7 @@ app.use(
 // routes
 app.use(authRoute);
 app.use(profileRoute);
+app.use(jobsRoute);
 
 
 app.listen(PORT, () => {

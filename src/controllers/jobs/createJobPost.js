@@ -4,24 +4,29 @@ import { IsActive } from "@prisma/client";
 
 
 
-async function jobPost(req = request, res = response) {
+async function createJob(req = request, res = response) {
   const {title, description, salary_min, salary_max, location, job_type} = req.body;
 
   const userId = req.userId;
 
-  const findNameCompany = await db.company.findFirst({
+  const findNameCompany = await db.company.findUnique({
     where: {
-      user_id: userId
+      user_id: userId,
     },
     select: {
-      company_name,
+      id: true,
+      company_name: true,
     }
-  });
+  })
+
+  const companyId = findNameCompany.id
+  const companyName = findNameCompany.company_name
 
   try {
     const response = await db.jobs.create({
       data: {
-        company: findNameCompany.company_name,
+        companyId: companyId,
+        company_name: companyName,
         title: title,
         description: description,
         salary_min: salary_min,
@@ -45,4 +50,4 @@ async function jobPost(req = request, res = response) {
 }
 
 
-export { jobPost };
+export { createJob };
