@@ -12,25 +12,26 @@ const storage = multer.diskStorage({
     cb(null, uploadDir);
   },
   filename: (req, file, cb) => {
-    const username = req.body.username || req.body.email;
-    const randomDataProfile = username.replace(/[^a-zA-Z0-9]/g, "_");
+    // const Username = req.body.username;
+    const Username = req.username;
+    const randomDataProduct = Username.replace(/[^a-zA-Z0-9]/g, "_");
 
-    cb(null, randomDataProfile + path.extname(file.originalname));
+    cb(null, randomDataProduct + path.extname(file.originalname));
   },
 });
 
 // validasi type image
 const fileFilter = (req, file, cb) => {
   const allowedMimeTypes = ["image/jpeg", "image/png", "image/jpg"];
+
   if (allowedMimeTypes.includes(file.mimetype)) {
     cb(null, true);
   } else {
     cb(new Error("Invalid image type"), false);
   }
 };
-
-// konfigurasi multer untuk upload image
-const uploadUser = multer({
+// konfigurasi multer untuk upload
+const uploadUpdateUser = multer({
   storage: storage,
   fileFilter: fileFilter,
   limits: {
@@ -38,62 +39,59 @@ const uploadUser = multer({
   },
 });
 
-async function profileUser(req = request, res = response) {
-  const { username, full_name, age, address, city, phone, bio, linkedin, portofolio_url } = req.body;
+async function updateProfile(req = request, res = response) {
   try {
+    const { full_name, bio, address, phone, age, linkedin, portofolio_url, city,} = req.body;
     const userId = req.userId;
-
-    // Validation
-    if(!username) {
+    if (req.body.username || req.body.email) {
       return res.status(400).json({
         status: "error",
-        message: "Username harus di isi"
-      })
-    };
-
-    const findEmail = await db.users.findFirst({
-      where: {
-        id: userId,
-      },
-      select: {
-        email: true,
-      }
-    });
-
-    const existingUsername = await db.profiles.findFirst({
-      where: {
-        username: username,
-      }
-    });
-    if(existingUsername){
-      return res.status(400).json({
-        status: "error",
-        message: "Username sudah terdaftar, coba username lain"
-      })
+        message: "Tidak boleh mengubah username & Email.",
+      });
     }
 
-    const response = await db.profiles.create({
+    //  Data Profile
+    const profileData = await db.profiles.findUnique({
+      where: {
+        user_id: userId,
+      },
+      select:{
+        id: true,
+        email: true,
+        user_id: true,
+        image: true,
+        username: true,
+      }
+    });
+    if (!profileData) {
+      return res.status(404).json({
+        status: "error",
+        message: `Profile with ID ${userId} not found / belum di buat`,
+      });
+    };
+
+    const response = await db.profiles.update({
+      where: {
+        id: profileData.id,
+      },
       data: {
-        username,
-        email: findEmail.email,
+        username: profileData.username,
+        email: profileData.email,
         full_name,
         age,
         address,
-        city,
         image: req.file.filename,
         phone,
         bio,
         linkedin,
         portofolio_url,
-        user_id: userId,
+        city,
       },
     });
-    const cleanResponse = Object.fromEntries(
-    Object.entries(response).filter(([_, v]) => v !== null)
-    );
-    res.status(201).json({
+
+    res.status(200).json({
       status: "success",
-      data: cleanResponse,
+      data: response,
     });
   } catch (error) {
     console.log(error);
@@ -104,4 +102,4 @@ async function profileUser(req = request, res = response) {
   }
 }
 
-export { profileUser , uploadUser};
+export { updateProfile, uploadUpdateUser };

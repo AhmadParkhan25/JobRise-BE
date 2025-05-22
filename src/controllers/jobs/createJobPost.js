@@ -17,7 +17,13 @@ async function createJob(req = request, res = response) {
       id: true,
       company_name: true,
     }
-  })
+  });
+  if (!findNameCompany){
+      return res.status(404).json({
+      status: "error",
+      message: "User Harus isi Profile Company dahulu"
+    });
+    }
 
   const companyId = findNameCompany.id
   const companyName = findNameCompany.company_name
