@@ -15,18 +15,19 @@ datasource db {
 
 model users {
   id               Int                 @id @default(autoincrement())
+  role             Role
   name             String
   email            String              @unique
   password         String
   confirm_password String
   email_verified   EmailVerifiedStatus
   otp              String?             @default("")
-  role             Role
   createdAt        DateTime            @default(now())
   updateAt         DateTime            @updatedAt()
 
-  Profile profiles?
-  Company company?
+  Profile     profiles?
+  Company     company?
+  Application applications[]
 }
 
 model roles {
@@ -48,6 +49,8 @@ model profiles {
   linkedin       String?
   portofolio_url String?
   city           String?
+
+  applications applications[]
 
   user users @relation(fields: [user_id], references: [id], onDelete: Cascade)
 }
@@ -71,6 +74,7 @@ model jobs {
   id           Int      @id @default(autoincrement())
   companyId    Int
   company_name String
+  company_logo String?
   title        String
   description  String
   salary_min   String
@@ -79,7 +83,22 @@ model jobs {
   job_type     String
   is_active    IsActive
 
+  applications applications[]
+
   company company @relation(fields: [companyId], references: [id], onDelete: Cascade)
+}
+
+model applications {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  jobId     Int
+  profileId Int
+  status    String
+  createdAt DateTime @default(now())
+
+  user users @relation(fields: [userId], references: [id], onDelete: Cascade)
+  job  jobs  @relation(fields: [jobId], references: [id], onDelete: Cascade)
+  profile profiles @relation(fields: [profileId], references: [id], onDelete: Cascade)
 }
 
 enum EmailVerifiedStatus {

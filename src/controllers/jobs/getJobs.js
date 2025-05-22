@@ -42,3 +42,6 @@ async function getJobs(req = request, res = response) {
 
 
 export { getJobs };
+
+
+// NOTED : ini untuk tampilan application

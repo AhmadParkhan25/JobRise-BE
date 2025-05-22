@@ -16,6 +16,7 @@ async function createJob(req = request, res = response) {
     select: {
       id: true,
       company_name: true,
+      logo: true,
     }
   });
   if (!findNameCompany){
@@ -27,12 +28,14 @@ async function createJob(req = request, res = response) {
 
   const companyId = findNameCompany.id
   const companyName = findNameCompany.company_name
+  const companyLogo = findNameCompany.logo
 
   try {
     const response = await db.jobs.create({
       data: {
         companyId: companyId,
         company_name: companyName,
+        company_logo: companyLogo,
         title: title,
         description: description,
         salary_min: salary_min,

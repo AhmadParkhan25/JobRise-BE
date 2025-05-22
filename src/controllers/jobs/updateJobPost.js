@@ -5,7 +5,6 @@ import { IsActive } from "@prisma/client";
 async function updateJob(req = request, res = response) {
   const { title, description, salary_min, salary_max, location, job_type } =
     req.body;
-  // const { id } = req.params;
   const jobId = parseInt(req.params.id)
 
   const userId = req.userId;
