@@ -25,14 +25,9 @@ model users {
   createdAt        DateTime            @default(now())
   updateAt         DateTime            @updatedAt()
 
-  Profile     profiles?
-  Company     company?
-  Application applications[]
-}
-
-model roles {
-  id   Int    @id
-  name String
+  Profile      profiles?
+  Company      company?
+  applications applications[]
 }
 
 model profiles {
@@ -91,13 +86,14 @@ model jobs {
 model applications {
   id        Int      @id @default(autoincrement())
   userId    Int
+  name_user String?
   jobId     Int
   profileId Int
-  status    String
+  status    Status
   createdAt DateTime @default(now())
 
-  user users @relation(fields: [userId], references: [id], onDelete: Cascade)
-  job  jobs  @relation(fields: [jobId], references: [id], onDelete: Cascade)
+  user    users    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  job     jobs     @relation(fields: [jobId], references: [id], onDelete: Cascade)
   profile profiles @relation(fields: [profileId], references: [id], onDelete: Cascade)
 }
 
@@ -114,4 +110,10 @@ enum Role {
 enum IsActive {
   active
   deactive
+}
+
+enum Status {
+  Accepted
+  Screening
+  Rejected
 }

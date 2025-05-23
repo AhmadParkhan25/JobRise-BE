@@ -35,12 +35,5 @@ authRoute.post('/api/email-verification', validateMiddleUser, emailVerification)
 // chatbot
 authRoute.post('/api/chatbot', validateMiddleUser, chatbot);
 
-// ProfileUser
-// authRoute.post('/api/profile', upload.single("image"), validateMiddleUser, profileUser );
-
-// ProfileCompany
-// authRoute.post('/api/profile-company',upload.single("logo"), validateMiddleUser, CompanyOnly, profileCompany);
-
-
 
 export default authRoute;

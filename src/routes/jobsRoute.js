@@ -4,13 +4,13 @@ import { CompanyOnly } from "../middleware/companyOnly";
 import { createJob } from "../controllers/jobs/createJobPost";
 import { updateJob } from "../controllers/jobs/updateJobPost";
 import { statusJobPost } from "../controllers/jobs/statusJobPost";
-import { getJobs } from "../controllers/jobs/getJobs";
 import { getJobsDetailByID } from "../controllers/jobs/getJobDetailByID";
 import { getJobsActive } from "../controllers/jobs/user/getJobsActive";
 
 
 const jobsRoute = new Router();
 
+// COMPANY
 // Create Job
 jobsRoute.post('/api/jobs', validateMiddleUser, CompanyOnly, createJob);
 
@@ -22,9 +22,6 @@ jobsRoute.put('/api/jobs/status/:id', validateMiddleUser, CompanyOnly, statusJob
 
 // Get Job Detail By ID
 jobsRoute.get('/api/jobs/:id', validateMiddleUser, getJobsDetailByID);
-
-// Get Jobs
-// jobsRoute.get('/api/jobs', getJobs);
 
 
 // USER

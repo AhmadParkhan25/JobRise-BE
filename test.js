@@ -80,3 +80,66 @@ const assignUsernameToRequest = async (req, res, next) => {
     res.status(500).json({ message: "Server error" });
   }
 };
+
+
+
+
+// Get user apply
+import { request, response } from "express";
+import db from "../../connector";
+
+async function getUserApply(req = request, res = response) {
+  const userId = req.userId
+
+  try {
+    const response = await db.applications.findMany({
+      where:{
+        userId: userId
+      },
+      select: {
+        id: true,
+        status: true,
+        createdAt: true,
+        job: true,
+      }
+    });
+  
+    if (!response) {
+        return res.status(404).json({
+          status: "error",
+          message: `Transaction NOT Found with User ID ${userId} `,
+        });
+      }
+  
+    // Formatter Transaction
+      const formatterUserApply = response.map((item) => {
+        return {
+          id: item.id,
+          status: item.status,
+          createdAt: item.createdAt,
+          job_id: item.job.id,
+          title: item.job.title,
+          company_logo: item.job.company_logo,
+          salary_min: item.job.salary_min,
+          salary_max: item.job.salary_max,
+          location: item.job.location,
+        };
+      }
+      );
+      res.status(200).json({
+        status: "success",
+        data: formatterUserApply,
+      });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      status: "error",
+      message: error.message,
+    });
+  }
+}
+
+
+
+// export { getUserApply };
+
