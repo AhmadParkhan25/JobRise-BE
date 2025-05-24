@@ -28,6 +28,7 @@ model users {
   Profile      profiles?
   Company      company?
   applications applications[]
+  favorites    favorites[]
 }
 
 model profiles {
@@ -80,6 +81,7 @@ model jobs {
   createdAt    DateTime @default(now())
 
   applications applications[]
+  favorites    favorites[]
 
   company company @relation(fields: [companyId], references: [id], onDelete: Cascade)
 }
@@ -96,6 +98,16 @@ model applications {
   user    users    @relation(fields: [userId], references: [id], onDelete: Cascade)
   job     jobs     @relation(fields: [jobId], references: [id], onDelete: Cascade)
   profile profiles @relation(fields: [profileId], references: [id], onDelete: Cascade)
+}
+
+model favorites {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  jobId     Int
+  createdAt DateTime @default(now())
+
+  user users @relation(fields: [userId], references: [id], onDelete: Cascade)
+  job  jobs  @relation(fields: [jobId], references: [id], onDelete: Cascade)
 }
 
 enum EmailVerifiedStatus {
