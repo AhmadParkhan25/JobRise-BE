@@ -18,7 +18,7 @@ jobsRoute.post('/api/jobs', validateMiddleUser, CompanyOnly, createJob);
 jobsRoute.put('/api/jobs/:id', validateMiddleUser, CompanyOnly, updateJob);
 
 // update status Job
-jobsRoute.put('/api/jobs/status/:id', validateMiddleUser, CompanyOnly, statusJobPost);
+jobsRoute.put('/api/jobs/:id/status', validateMiddleUser, CompanyOnly, statusJobPost);
 
 // Get Job Detail By ID
 jobsRoute.get('/api/jobs/:id', validateMiddleUser, getJobsDetailByID);
@@ -27,6 +27,9 @@ jobsRoute.get('/api/jobs/:id', validateMiddleUser, getJobsDetailByID);
 // USER
 // get Jobs Active
 jobsRoute.get('/api/jobs-active', validateMiddleUser, getJobsActive);
+
+//  get Jobs Detail Active By ID
+jobsRoute.get('/api/jobs-active/:id', validateMiddleUser, getJobsDetailByID);
 
 
 

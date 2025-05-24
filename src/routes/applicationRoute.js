@@ -5,12 +5,20 @@ import { CompanyOnly } from "../middleware/companyOnly";
 import { getCompanyJobs } from "../controllers/application/getCompanyJobs";
 import { getUserApplyByJobID } from "../controllers/application/getUserApplyByJobID";
 import { updateStatusUser } from "../controllers/application/updateStatusUser";
+import { getDetailUserApply } from "../controllers/application/getDetailUserApply";
+import { createUserApply } from "../controllers/application/createUserApply";
 
 const applicationRoute = new Router();
 
 // USER
 // get User Application
 applicationRoute.get('/api/application', validateMiddleUser, getUserApply );
+
+// get Jobs Detail By ID
+applicationRoute.get('/api/application/:id', validateMiddleUser, getDetailUserApply);
+
+// Apply Job User
+applicationRoute.post('/api/jobs-active/:id/apply', validateMiddleUser, createUserApply);
 
 
 
