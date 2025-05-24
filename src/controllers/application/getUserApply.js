@@ -4,7 +4,7 @@ import db from "../../connector";
 async function getUserApply(req = request, res = response) {
   const userId = req.userId;
   const { page = 1, limit = 10 } = req.query;
-  const skip = (parseInt(page) - 1) * parseInt(limit);
+  const offset = (page - 1) * limit;
 
   try {
     const totalApplications = await db.applications.count({
@@ -23,7 +23,7 @@ async function getUserApply(req = request, res = response) {
         createdAt: true,
         job: true,
       },
-      skip: skip,
+      skip: offset,
       take: parseInt(limit),
       orderBy: {
         createdAt: "desc",

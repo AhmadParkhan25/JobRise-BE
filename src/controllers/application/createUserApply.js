@@ -26,6 +26,18 @@ async function createUserApply(req = request, res = response) {
       });
     }
 
+    const existingApplication = await db.applications.findFirst({
+      where: {
+        userId: userId,
+        jobId: jobId,
+      },
+    });
+    if (existingApplication) {
+      return res.status(400).json({
+        status: "error",
+        message: "Job already applied",
+      })
+    }
 
     const response = await db.applications.create({
       data: {

@@ -6,6 +6,7 @@ import path from "path";
 import profileRoute from "./routes/profileRoute";
 import jobsRoute from "./routes/jobsRoute";
 import applicationRoute from "./routes/applicationRoute";
+import favoriteRoute from "./routes/favoriteRoute";
 
 // configuration
 const app = express();
@@ -41,6 +42,7 @@ app.use(authRoute);
 app.use(profileRoute);
 app.use(jobsRoute);
 app.use(applicationRoute);
+app.use(favoriteRoute);
 
 
 app.listen(PORT, () => {
