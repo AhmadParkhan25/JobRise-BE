@@ -7,12 +7,6 @@ async function deleteFavorite(req = request, res = response) {
   const jobId = parseInt(req.params.id);
 
   try {
-    // const existingFavorite = await db.favorites.findFirst({
-    //   where: {
-    //     userId: userId,
-    //     jobId: jobId,
-    //   },
-    // });
     const existingFavorite = await db.favorites.findUnique({
       where: {
         id: jobId,
