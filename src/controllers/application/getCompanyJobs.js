@@ -43,10 +43,9 @@ async function getCompanyJobs(req = request, res = response) {
       },
       skip: offset,
       take: parseInt(limit),
-      // NOTED: Harus nya ada field createAt
-      // orderBy: {
-      //   createdAt: "desc",
-      // },
+      orderBy: {
+        createdAt: "desc",
+      },
     });
 
     if (!jobs || jobs.length === 0) {

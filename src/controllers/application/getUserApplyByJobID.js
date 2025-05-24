@@ -3,13 +3,11 @@ import db from "../../connector";
 
 
 async function getUserApplyByJobID(req = request, res = response) {
-  // const userId = req.userId;
   const jobId = parseInt(req.params.id);
 
   try {
     const response = await db.applications.findMany({
       where: {
-        // userId: userId,
         jobId: jobId,
       },
       select: {

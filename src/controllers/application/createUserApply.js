@@ -18,7 +18,13 @@ async function createUserApply(req = request, res = response) {
         id: true,
         full_name: true,
       }
-    })
+    });
+    if (!findProfile) {
+      return res.status(404).json({
+        status: "error",
+        message: `Harus isi Profile terlebih dahulu`,
+      });
+    }
 
 
     const response = await db.applications.create({
@@ -34,9 +40,6 @@ async function createUserApply(req = request, res = response) {
     res.status(200).json({
       status: "success",
       data: response,
-      // data:{
-      //     applicationData
-      // }
     });
 
   } catch (error) {
