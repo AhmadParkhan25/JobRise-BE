@@ -120,8 +120,8 @@ model educations {
   profileId   Int
   name_school String
   major       String
-  start_date  DateTime
-  end_date    DateTime?
+  start_date  String
+  end_date    String?
   gpa         String?
   description String?
 
@@ -133,8 +133,8 @@ model experiences {
   profileId    Int
   title        String
   company_name String
-  start_date   DateTime
-  end_date     DateTime?
+  start_date   String
+  end_date     String?
   description  String?
 
   profile profiles @relation(fields: [profileId], references: [id], onDelete: Cascade)
@@ -145,8 +145,8 @@ model projects {
   profileId   Int
   title       String
   link_url    String?
-  start_date  DateTime
-  end_date    DateTime?
+  start_date  String
+  end_date    String?
   description String?
 
   profile profiles @relation(fields: [profileId], references: [id], onDelete: Cascade)
@@ -166,7 +166,7 @@ model certifications {
   profileId         Int
   name              String
   issue_by          String?
-  year              DateTime
+  year              String
   description       String?
   id_credential_url String?
 

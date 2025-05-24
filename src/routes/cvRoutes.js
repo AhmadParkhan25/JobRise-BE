@@ -1,0 +1,50 @@
+import { Router } from "express";
+import { createEducation } from "../controllers/cv/education/createEducation";
+import { updateEducation } from "../controllers/cv/education/updateEducation";
+import { deleteEducation } from "../controllers/cv/education/deleteEducation";
+import { getEducation } from "../controllers/cv/education/getEducation";
+import { validateMiddleUser } from "../middleware/validateMiddleUser";
+
+const cvRoute = new Router();
+
+// =========================
+// Education
+// =========================
+cvRoute.post("/api/cv/education", validateMiddleUser, createEducation);
+cvRoute.put("/api/cv/education/:id", validateMiddleUser, updateEducation);
+cvRoute.delete("/api/cv/education/:id", validateMiddleUser, deleteEducation);
+cvRoute.get("/api/cv/education", validateMiddleUser, getEducation);
+
+// // =========================
+// // Experience
+// // =========================
+// cvRoute.post("/api/cv/experience", validateMiddleUser, createExperience);
+// cvRoute.put("/api/cv/experience/:id", validateMiddleUser, updateExperience);
+// cvRoute.delete("/api/cv/experience/:id", validateMiddleUser, deleteExperience);
+// cvRoute.get("/api/cv/experience", validateMiddleUser, getExperience);
+
+// // =========================
+// // Project
+// // =========================
+// cvRoute.post("/api/cv/project", validateMiddleUser, createProject);
+// cvRoute.put("/api/cv/project/:id", validateMiddleUser, updateProject);
+// cvRoute.delete("/api/cv/project/:id", validateMiddleUser, deleteProject);
+// cvRoute.get("/api/cv/project", validateMiddleUser, getProject);
+
+// // =========================
+// // Skill
+// // =========================
+// cvRoute.post("/api/cv/skill", validateMiddleUser, createSkill);
+// cvRoute.put("/api/cv/skill/:id", validateMiddleUser, updateSkill);
+// cvRoute.delete("/api/cv/skill/:id", validateMiddleUser, deleteSkill);
+// cvRoute.get("/api/cv/skill", validateMiddleUser, getSkill);
+
+// // =========================
+// // Certification
+// // =========================
+// cvRoute.post("/api/cv/certification", validateMiddleUser, createCertification);
+// cvRoute.put("/api/cv/certification/:id", validateMiddleUser, updateCertification);
+// cvRoute.delete("/api/cv/certification/:id", validateMiddleUser, deleteCertification);
+// cvRoute.get("/api/cv/certification", validateMiddleUser, getCertification);
+
+export default cvRoute;
