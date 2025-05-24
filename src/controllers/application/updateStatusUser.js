@@ -11,6 +11,8 @@ async function updateStatusUser(req = request, res = response) {
       return res.status(400).json({ error: "Invalid status value" });
     }
 
+
+
     const updateStatus = await db.applications.update({
       where: {
         id: applicationId,

@@ -33,7 +33,7 @@ async function getUserApply(req = request, res = response) {
     if (!userApplications || userApplications.length === 0) {
       return res.status(404).json({
         status: "error",
-        message: `No applications found for user ID ${userId}`,
+        message: `No apply Job found for user ID ${userId}`,
       });
     }
 

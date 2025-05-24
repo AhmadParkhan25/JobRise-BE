@@ -1,10 +1,10 @@
 import { Router } from "express";
 import { validateMiddleUser } from "../middleware/validateMiddleUser";
 import { CompanyOnly } from "../middleware/companyOnly";
-import { createJob } from "../controllers/jobs/createJobPost";
-import { updateJob } from "../controllers/jobs/updateJobPost";
-import { statusJobPost } from "../controllers/jobs/statusJobPost";
-import { getJobsDetailByID } from "../controllers/jobs/getJobDetailByID";
+import { createJob } from "../controllers/jobs/company/createJobPost";
+import { updateJob } from "../controllers/jobs/company/updateJobPost";
+import { statusJobPost } from "../controllers/jobs/company/statusJobPost";
+import { getJobsDetailByID } from "../controllers/jobs/company/getJobDetailByID";
 import { getJobsActive } from "../controllers/jobs/user/getJobsActive";
 import { createUserApply } from "../controllers/application/createUserApply";
 import { getCompanyJobs } from "../controllers/application/getCompanyJobs";

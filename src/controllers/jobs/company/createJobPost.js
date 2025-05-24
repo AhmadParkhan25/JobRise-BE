@@ -1,5 +1,5 @@
 import { request, response } from "express";
-import db from "../../connector";
+import db from "../../../connector";
 import { IsActive } from "@prisma/client";
 
 

@@ -16,6 +16,12 @@ async function getCompanyJobs(req = request, res = response) {
         id: true,
       },
     });
+    if (!findUser) {
+      return res.status(404).json({
+        status: "error",
+        message: `Harus isi Profile Company terlebih dahulu`,
+      });
+    }
 
     const totalJobs = await db.jobs.count({
       where: {
