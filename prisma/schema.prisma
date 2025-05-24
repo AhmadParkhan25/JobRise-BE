@@ -47,6 +47,11 @@ model profiles {
   city           String?
 
   applications applications[]
+  educations   educations[]
+  experiences experiences[]
+  projects     projects[]
+  skills       skills[]
+  certifications certifications[]
 
   user users @relation(fields: [user_id], references: [id], onDelete: Cascade)
 }
@@ -109,6 +114,66 @@ model favorites {
   user users @relation(fields: [userId], references: [id], onDelete: Cascade)
   job  jobs  @relation(fields: [jobId], references: [id], onDelete: Cascade)
 }
+
+model educations {
+  id Int @id @default(autoincrement())
+  profileId Int
+  name_school String
+  major String
+  start_date DateTime
+  end_date DateTime?
+  gpa String?
+  description String?
+
+  profile profiles @relation(fields: [profileId], references: [id], onDelete: Cascade)
+}
+
+model experiences {
+  id Int @id @default(autoincrement())
+  profileId Int
+  title String
+  company_name String
+  start_date DateTime
+  end_date DateTime?
+  description String?
+
+  profile profiles @relation(fields: [profileId], references: [id],onDelete: Cascade)
+}
+
+model projects {
+  id Int @id @default(autoincrement())
+  profileId Int
+  title String
+  link_url String?
+  start_date DateTime
+  end_date DateTime?
+  description String?
+
+  profile profiles @relation(fields: [profileId], references: [id], onDelete: Cascade)
+}
+
+model skills {
+  id Int @id @default(autoincrement())
+  profileId Int
+  name String
+  level String
+
+  profile profiles @relation(fields: [profileId], references: [id], onDelete: Cascade)
+}
+
+model certifications {
+  id Int @id @default(autoincrement())
+  profileId Int
+  name String
+  issue_by String?
+  year DateTime
+  description String?
+  id_credential_url String?
+
+  profile profiles @relation(fields: [profileId], references: [id], onDelete: Cascade)
+}
+
+
 
 enum EmailVerifiedStatus {
   yes
