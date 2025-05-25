@@ -8,6 +8,10 @@ import { createExperience } from "../controllers/cv/experience/createExperience"
 import { updateExperience } from "../controllers/cv/experience/updateExperience";
 import { deleteExperience } from "../controllers/cv/experience/deleteExperience";
 import { getExperience } from "../controllers/cv/experience/getExperience";
+import { createProject } from "../controllers/cv/project/createProject";
+import { updateProject } from "../controllers/cv/project/updateProject";
+import { deleteProject } from "../controllers/cv/project/deleteProject";
+import { getProject } from "../controllers/cv/project/getProject";
 
 
 const cvRoute = new Router();
@@ -28,13 +32,13 @@ cvRoute.put("/api/cv/experience/:id", validateMiddleUser, updateExperience);
 cvRoute.delete("/api/cv/experience/:id", validateMiddleUser, deleteExperience);
 cvRoute.get("/api/cv/experience", validateMiddleUser, getExperience);
 
-// // =========================
-// // Project
-// // =========================
-// cvRoute.post("/api/cv/project", validateMiddleUser, createProject);
-// cvRoute.put("/api/cv/project/:id", validateMiddleUser, updateProject);
-// cvRoute.delete("/api/cv/project/:id", validateMiddleUser, deleteProject);
-// cvRoute.get("/api/cv/project", validateMiddleUser, getProject);
+// =========================
+// Project
+// =========================
+cvRoute.post("/api/cv/project", validateMiddleUser, createProject);
+cvRoute.put("/api/cv/project/:id", validateMiddleUser, updateProject);
+cvRoute.delete("/api/cv/project/:id", validateMiddleUser, deleteProject);
+cvRoute.get("/api/cv/project", validateMiddleUser, getProject);
 
 // // =========================
 // // Skill
