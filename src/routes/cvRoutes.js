@@ -16,6 +16,10 @@ import { createSkill } from "../controllers/cv/skill/createSkill";
 import { updateSkill } from "../controllers/cv/skill/updateSkill";
 import { deleteSkill } from "../controllers/cv/skill/deleteSkill";
 import { getSkill } from "../controllers/cv/skill/getSkill";
+import { createCertification } from "../controllers/cv/certification/createCertification";
+import { updateCertification } from "../controllers/cv/certification/updateCertification";
+import { deleteCertification } from "../controllers/cv/certification/deleteCertification";
+import { getCertification } from "../controllers/cv/certification/getCertification";
 
 
 const cvRoute = new Router();
@@ -52,12 +56,12 @@ cvRoute.put("/api/cv/skill/:id", validateMiddleUser, updateSkill);
 cvRoute.delete("/api/cv/skill/:id", validateMiddleUser, deleteSkill);
 cvRoute.get("/api/cv/skill", validateMiddleUser, getSkill);
 
-// // =========================
-// // Certification
-// // =========================
-// cvRoute.post("/api/cv/certification", validateMiddleUser, createCertification);
-// cvRoute.put("/api/cv/certification/:id", validateMiddleUser, updateCertification);
-// cvRoute.delete("/api/cv/certification/:id", validateMiddleUser, deleteCertification);
-// cvRoute.get("/api/cv/certification", validateMiddleUser, getCertification);
+// =========================
+// Certification
+// =========================
+cvRoute.post("/api/cv/certification", validateMiddleUser, createCertification);
+cvRoute.put("/api/cv/certification/:id", validateMiddleUser, updateCertification);
+cvRoute.delete("/api/cv/certification/:id", validateMiddleUser, deleteCertification);
+cvRoute.get("/api/cv/certification", validateMiddleUser, getCertification);
 
 export default cvRoute;
