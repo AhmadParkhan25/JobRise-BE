@@ -10,6 +10,19 @@ async function updateEducation(req = request, res = response) {
   try {
     const profileID = await getProfileIdByUserId(userId);
 
+    const existingEducation = await db.educations.findUnique({
+      where: {
+        id: educationId,
+        profileId: profileID,
+      },
+    });
+    if (!existingEducation) {
+      return res.status(404).json({
+        status: "error",
+        message: "Education not found",
+      });
+    }
+
     const response = await db.educations.update({
       where: {
         id: educationId,

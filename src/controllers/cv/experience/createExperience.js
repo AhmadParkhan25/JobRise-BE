@@ -3,7 +3,7 @@ import db from "../../../connector";
 import { getProfileIdByUserId } from "../../../utils/findProfileId";
 
 async function createExperience(req = request, res = response) {
-  const { title, start_date, end_date, description } = req.body;
+  const { title, company_name, start_date, end_date, description } = req.body;
   const userId = req.userId;
 
   try {

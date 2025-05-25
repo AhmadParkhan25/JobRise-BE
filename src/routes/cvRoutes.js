@@ -1,9 +1,14 @@
 import { Router } from "express";
+import { validateMiddleUser } from "../middleware/validateMiddleUser";
 import { createEducation } from "../controllers/cv/education/createEducation";
 import { updateEducation } from "../controllers/cv/education/updateEducation";
 import { deleteEducation } from "../controllers/cv/education/deleteEducation";
 import { getEducation } from "../controllers/cv/education/getEducation";
-import { validateMiddleUser } from "../middleware/validateMiddleUser";
+import { createExperience } from "../controllers/cv/experience/createExperience";
+import { updateExperience } from "../controllers/cv/experience/updateExperience";
+import { deleteExperience } from "../controllers/cv/experience/deleteExperience";
+import { getExperience } from "../controllers/cv/experience/getExperience";
+
 
 const cvRoute = new Router();
 
@@ -15,13 +20,13 @@ cvRoute.put("/api/cv/education/:id", validateMiddleUser, updateEducation);
 cvRoute.delete("/api/cv/education/:id", validateMiddleUser, deleteEducation);
 cvRoute.get("/api/cv/education", validateMiddleUser, getEducation);
 
-// // =========================
-// // Experience
-// // =========================
-// cvRoute.post("/api/cv/experience", validateMiddleUser, createExperience);
-// cvRoute.put("/api/cv/experience/:id", validateMiddleUser, updateExperience);
-// cvRoute.delete("/api/cv/experience/:id", validateMiddleUser, deleteExperience);
-// cvRoute.get("/api/cv/experience", validateMiddleUser, getExperience);
+// =========================
+// Experience
+// =========================
+cvRoute.post("/api/cv/experience", validateMiddleUser, createExperience);
+cvRoute.put("/api/cv/experience/:id", validateMiddleUser, updateExperience);
+cvRoute.delete("/api/cv/experience/:id", validateMiddleUser, deleteExperience);
+cvRoute.get("/api/cv/experience", validateMiddleUser, getExperience);
 
 // // =========================
 // // Project
