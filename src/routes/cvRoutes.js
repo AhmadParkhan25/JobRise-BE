@@ -20,9 +20,18 @@ import { createCertification } from "../controllers/cv/certification/createCerti
 import { updateCertification } from "../controllers/cv/certification/updateCertification";
 import { deleteCertification } from "../controllers/cv/certification/deleteCertification";
 import { getCertification } from "../controllers/cv/certification/getCertification";
+import { getCVGenerate } from "../controllers/cv/cvGenerate";
+import { cvPreview } from "../controllers/cv/cvPreview";
+import { CompanyOnly } from "../middleware/companyOnly";
 
 
 const cvRoute = new Router();
+
+// CV Generate
+cvRoute.get("/api/cv", validateMiddleUser, getCVGenerate);
+
+// CV Preview for page Company
+cvRoute.get("/api/cv/application/:id", validateMiddleUser, CompanyOnly, cvPreview);
 
 // =========================
 // Education

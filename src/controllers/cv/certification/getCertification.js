@@ -14,9 +14,9 @@ async function getCertification(req = request, res = response) {
       select: {
         id: true,
         name: true,
-        issu_by: true,
+        issue_by: true,
         year: true,
-        id_credetial_url: true,
+        id_credential_url: true,
         description: true,
       },
     });

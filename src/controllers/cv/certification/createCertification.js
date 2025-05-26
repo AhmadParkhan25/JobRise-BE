@@ -3,7 +3,7 @@ import db from "../../../connector";
 import { getProfileIdByUserId } from "../../../utils/findProfileId";
 
 async function createCertification(req = request, res = response) {
-  const {  name, issu_by, year, id_credetial_url, description } = req.body;
+  const {  name, issue_by, year, id_credential_url, description } = req.body;
   const userId = req.userId;
   try {
     const profileID = await getProfileIdByUserId(userId);
@@ -12,9 +12,9 @@ async function createCertification(req = request, res = response) {
       data: {
         profileId: profileID,
         name: name,
-        issu_by: issu_by,
+        issue_by: issue_by,
         year: year,
-        id_credetial_url: id_credetial_url,
+        id_credential_url: id_credential_url,
         description: description,
       },
     });
