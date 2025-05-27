@@ -29,7 +29,7 @@ app.use(
 
 app.use(
   "/public",
-  express.static(path.join(__dirname, "../public/img_ProfileUser"))
+  express.static(path.join(__dirname, "../public/imageProfile"))
 )
 
 app.use(
