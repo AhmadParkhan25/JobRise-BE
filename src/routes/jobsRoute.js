@@ -3,7 +3,7 @@ import { validateMiddleUser } from "../middleware/validateMiddleUser";
 import { CompanyOnly } from "../middleware/companyOnly";
 import { createJob } from "../controllers/jobs/company/createJobPost";
 import { updateJob } from "../controllers/jobs/company/updateJobPost";
-import { statusJobPost } from "../controllers/jobs/company/statusJobPost";
+import { activateJobPost, deactiveJobPost, statusJobPost } from "../controllers/jobs/company/statusJobPost";
 import { getJobsDetailByID } from "../controllers/jobs/company/getJobDetailByID";
 import { getJobsActive } from "../controllers/jobs/user/getJobsActive";
 import { createUserApply } from "../controllers/application/createUserApply";
@@ -16,7 +16,7 @@ const jobsRoute = new Router();
 // Create Job
 jobsRoute.post('/api/jobs', validateMiddleUser, CompanyOnly, createJob);
 
-// get Jobs by company
+// get Jobs by Auth company
 jobsRoute.get('/api/jobs', validateMiddleUser, CompanyOnly, getCompanyJobs);
 
 // Get Job Detail By ID
@@ -25,8 +25,11 @@ jobsRoute.get('/api/jobs/:id', validateMiddleUser, getJobsDetailByID);
 // Update Job
 jobsRoute.put('/api/jobs/:id', validateMiddleUser, CompanyOnly, updateJob);
 
-// update status Job
-jobsRoute.put('/api/jobs/:id/status', validateMiddleUser, CompanyOnly, statusJobPost);
+// update status to deactive Job
+jobsRoute.put('/api/jobs/:id/status-deactive', validateMiddleUser, CompanyOnly, deactiveJobPost);
+
+// update status to activate Job
+jobsRoute.put('/api/jobs/:id/status-active', validateMiddleUser, CompanyOnly, activateJobPost);
 
 
 // USER
