@@ -21,14 +21,26 @@ model users {
   password         String
   confirm_password String
   email_verified   EmailVerifiedStatus
-  otp              String?             @default("")
   createdAt        DateTime            @default(now())
   updateAt         DateTime            @updatedAt()
 
   Profile      profiles?
   Company      company?
+  otp          otps?
   applications applications[]
   favorites    favorites[]
+}
+
+model otps {
+  id        String   @id @default(ulid())
+  userId    Int      @unique
+  email     String
+  otp       String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt()
+  expiredAt DateTime
+
+  user users @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model profiles {
@@ -116,7 +128,7 @@ model favorites {
 }
 
 model educations {
-  id          Int       @id @default(autoincrement())
+  id          Int     @id @default(autoincrement())
   profileId   Int
   name_school String
   major       String
@@ -129,7 +141,7 @@ model educations {
 }
 
 model experiences {
-  id           Int       @id @default(autoincrement())
+  id           Int     @id @default(autoincrement())
   profileId    Int
   title        String
   company_name String
@@ -141,7 +153,7 @@ model experiences {
 }
 
 model projects {
-  id          Int       @id @default(autoincrement())
+  id          Int     @id @default(autoincrement())
   profileId   Int
   title       String
   link_url    String?
@@ -162,7 +174,7 @@ model skills {
 }
 
 model certifications {
-  id                Int      @id @default(autoincrement())
+  id                Int     @id @default(autoincrement())
   profileId         Int
   name              String
   issue_by          String?
