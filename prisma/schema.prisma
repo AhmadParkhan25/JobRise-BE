@@ -48,6 +48,7 @@ model profiles {
   user_id        Int     @unique
   username       String?
   email          String?
+  email_verified String?
   full_name      String
   age            String
   address        String
@@ -69,14 +70,16 @@ model profiles {
 }
 
 model company {
-  id           Int    @id @default(autoincrement())
-  user_id      Int    @unique
-  company_name String
-  address      String
-  logo         String
-  website      String
-  industry     String
-  description  String
+  id             Int     @id @default(autoincrement())
+  user_id        Int     @unique
+  company_name   String
+  email          String?
+  email_verified String?
+  address        String
+  logo           String
+  website        String
+  industry       String
+  description    String
 
   job jobs[]
 

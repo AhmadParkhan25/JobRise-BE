@@ -51,6 +51,16 @@ async function profileCompany(req = request, res = response) {
       })
     };
 
+    const findEmail = await db.users.findFirst({
+      where: {
+        id: userId,
+      },
+      select: {
+        email: true,
+        email_verified: true,
+      }
+    });
+
     const existingCompanyName = await db.company.findFirst({
       where: {
         company_name: company_name,
@@ -77,6 +87,8 @@ async function profileCompany(req = request, res = response) {
     const response = await db.company.create({
       data: {
         company_name,
+        email: findEmail.email,
+        email_verified: findEmail.email_verified,
         address,
         logo: req.file.filename,
         website,

@@ -13,6 +13,7 @@ async function getProfileByAuth(req = request, res = response) {
         user_id: true,
         username: true,
         email: true,
+        email_verified: true,
         full_name: true,
         age: true,
         address: true,

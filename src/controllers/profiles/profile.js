@@ -77,6 +77,7 @@ async function profileUser(req = request, res = response) {
       data: {
         username,
         email: findEmail.email,
+        email_verified: findEmail.email_verified,
         full_name,
         age,
         address,

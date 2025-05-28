@@ -12,6 +12,8 @@ async function getProfileCompanyByAuth(req = request, res = response) {
         id: true,
         user_id: true,
         company_name: true,
+        email: true,
+        email_verified: true,
         address: true,
         logo: true,
         website: true,
