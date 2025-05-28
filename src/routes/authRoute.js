@@ -5,8 +5,7 @@ import { validateMiddleUser } from "../middleware/validateMiddleUser";
 import { getUserByAuth } from "../controllers/auth/getUserByAuth";
 import { login, loginCompany } from "../controllers/auth/login";
 import { chatbot } from "../controllers/chatbot/chatbot";
-import { emailVerification } from "../controllers/auth/emailVerification";
-import { profileUser, upload } from "../controllers/profiles/profile";
+import { sendOTP, verifyOTP } from "../controllers/auth/emailVerification";
 
 
 const authRoute = new Router();
@@ -29,8 +28,11 @@ authRoute.get('/api/users', getUsers);
 // Get user by Auth
 authRoute.get('/api/user-auth', validateMiddleUser, getUserByAuth);
 
-// email verification
-authRoute.post('/api/email-verification', validateMiddleUser, emailVerification);
+// Send OTP for email verification
+authRoute.post('/api/send-verification-otp', validateMiddleUser, sendOTP);
+
+// Verify OTP
+authRoute.post('/api/verify-email', validateMiddleUser, verifyOTP);
 
 // chatbot
 authRoute.post('/api/chatbot', validateMiddleUser, chatbot);

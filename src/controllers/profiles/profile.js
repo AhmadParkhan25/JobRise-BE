@@ -57,6 +57,7 @@ async function profileUser(req = request, res = response) {
       },
       select: {
         email: true,
+        email_verified: true,
       }
     });
 

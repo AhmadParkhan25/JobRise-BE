@@ -16,7 +16,7 @@ function generateOtp(){
 }
 
 function otpExpiresAt() {
-  return new Date(Date.now() + 5 * 60 * 100);
+  return new Date(Date.now() + 5 * 60 * 1000); 
 }
 
 async function sendVerificationEmail(email, otp) {
@@ -86,14 +86,14 @@ async function verificationOTP(userId, otp) {
         expiredAt: {
           gte: new Date()
         }
+      },
+      select: {
+        id: true,
       }
     });
 
     if (!otpRecord) {
-      return res.status(404).json({
-        status: "error",
-        message: "Invalid or expired OTP",
-      });
+      return { success: false, message: "Invalid or expired OTP" };
     }
 
     // update status
@@ -103,13 +103,10 @@ async function verificationOTP(userId, otp) {
     });
 
     await db.otps.delete({
-      where: { id: uuidv4() }
+      where: { id: otpRecord.id }
     });
 
-    res.status(200).json({
-      status: "success",
-      message: "Email verified successfully"
-    });
+    return { success: true, message: "Email verified successfully" };
   } catch (error) {
     console.error("Error verifying OTP:", error);
     throw error;
