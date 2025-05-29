@@ -24,7 +24,7 @@ async function login(req = request, res = response) {
     if (!validPassword) {
       return res.status(400).json({
         status: "error",
-        message: "Password not match",
+        message: "Password Invalid",
       });
     }
 

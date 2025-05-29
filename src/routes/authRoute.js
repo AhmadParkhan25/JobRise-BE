@@ -6,6 +6,7 @@ import { getUserByAuth } from "../controllers/auth/getUserByAuth";
 import { login, loginCompany } from "../controllers/auth/login";
 import { chatbot } from "../controllers/chatbot/chatbot";
 import { sendOTP, verifyOTP } from "../controllers/auth/emailVerification";
+import { forgetPassword, forgotVerifyOTP, getVerifyToken, resetPassword } from "../controllers/auth/forgetPassword";
 
 
 const authRoute = new Router();
@@ -33,6 +34,15 @@ authRoute.post('/api/send-verification-otp', validateMiddleUser, sendOTP);
 
 // Verify OTP
 authRoute.post('/api/verify-email', validateMiddleUser, verifyOTP);
+
+// Send OTP for forgot password
+authRoute.post('/api/forgot-password', forgetPassword);
+
+// Get token verif for forgot password
+authRoute.get('/api/verify-token/:token', getVerifyToken);
+
+// Reset Password / new Password
+authRoute.post('/api/reset-password/:token', resetPassword);
 
 // chatbot
 authRoute.post('/api/chatbot', validateMiddleUser, chatbot);

@@ -24,6 +24,9 @@ model users {
   createdAt        DateTime            @default(now())
   updateAt         DateTime            @updatedAt()
 
+  resetToken       String?
+  resetTokenExpiry DateTime?
+
   Profile      profiles?
   Company      company?
   otp          otps?

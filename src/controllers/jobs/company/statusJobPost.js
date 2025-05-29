@@ -68,7 +68,7 @@ async function activateJobPost(req = request, res = response) {
     });
     res.status(200).json({
       status: "success",
-      message: "Job berhasil di non aktifkan",
+      message: "Job berhasil di aktifkan",
       job_id: response.id,
       is_active: response.is_active,
     });
