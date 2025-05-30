@@ -8,6 +8,10 @@ import { Role } from '@prisma/client';
 async function createUser(req = request, res = response) {
   const { name, email, password, confirm_password } = req.body;
 
+  if (/\d/.test(name)) {
+    return res.status(400).json({ message: "Name tidak boleh mengandung angka" });
+  }
+
   if (password != confirm_password ) {
     return res
     .status(400)
