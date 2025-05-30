@@ -17,8 +17,8 @@ async function forgetPassword(req = request, res = response) {
     });
 
     if(!findEmail) {
-      return res.status(200).json({ 
-        message: 'If the email exists, you will receive a password reset link' 
+      return res.status(400).json({ 
+        message: 'Email NOT Found, you must register first' 
       });
     }
 
