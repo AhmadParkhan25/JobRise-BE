@@ -67,7 +67,6 @@ async function updateCompany(req = request, res = response) {
       });
     };
 
-    // CASE 2
     let imageCompanyPath = companyData.logo;
     if (req.file) {
       const oldImagePath = path.resolve(uploadDir, companyData.logo);

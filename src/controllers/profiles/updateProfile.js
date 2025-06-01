@@ -80,7 +80,7 @@ async function updateProfile(req = request, res = response) {
         full_name,
         age,
         address,
-        image: req.file.filename,
+        image: req.file ? req.file.filename : profileData.image,
         phone,
         bio,
         linkedin,
