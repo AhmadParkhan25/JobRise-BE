@@ -1,3 +1,6 @@
+import { request, response } from "express";
+import db from "../../connector";
+
 async function deletUserApplyByJobID(req = request, res = response) {
   const jobId = parseInt(req.params.id);
 
