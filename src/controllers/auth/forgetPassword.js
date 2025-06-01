@@ -34,7 +34,7 @@ async function forgetPassword(req = request, res = response) {
     });
 
     // Create reset URL
-    const resetUrl = `${process.env.FRONTEND_URL || 'http://localhost:3000'}/reset-password?token=${resetToken}`;
+    const resetUrl = `${process.env.FRONTEND_URL || 'http://localhost:5173'}/reset-password?token=${resetToken}`;
 
     // Send mail
     const emailSent = await sendForgotEmail(findEmail.email, resetUrl);

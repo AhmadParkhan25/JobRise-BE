@@ -16,8 +16,8 @@ async function createEducation(req = request, res = response) {
         profileId: profileID,
         name_school: name_school,
         major: major,
-        start_date: start_date,
-        end_date: end_date,
+        start_date: new Date(start_date),
+        end_date: new Date(end_date),
         gpa: gpa,
         description: description,
       }

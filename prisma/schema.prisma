@@ -138,8 +138,8 @@ model educations {
   profileId   Int
   name_school String
   major       String
-  start_date  String
-  end_date    String?
+  start_date  DateTime
+  end_date    DateTime?
   gpa         String?
   description String?
 
