@@ -31,8 +31,8 @@ async function updateExperience(req = request, res = response) {
       data: {
         title,
         company_name,
-        start_date,
-        end_date,
+        start_date: new Date(start_date),
+        end_date: new Date(end_date),
         description,
       },
     });

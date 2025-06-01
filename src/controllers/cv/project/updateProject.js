@@ -31,8 +31,8 @@ async function updateProject(req = request, res = response) {
       data: {
         title: title,
         link_url: link_url,
-        start_date: start_date,
-        end_date: end_date,
+        start_date: new Date(start_date),
+        end_date: new Date(end_date),
         description: description,
       },
     });
