@@ -3,11 +3,12 @@ import { validateMiddleUser } from "../middleware/validateMiddleUser";
 import { CompanyOnly } from "../middleware/companyOnly";
 import { createJob } from "../controllers/jobs/company/createJobPost";
 import { updateJob } from "../controllers/jobs/company/updateJobPost";
-import { activateJobPost, deactiveJobPost, statusJobPost } from "../controllers/jobs/company/statusJobPost";
+import { activateJobPost, deactiveJobPost } from "../controllers/jobs/company/statusJobPost";
 import { getJobsDetailByID } from "../controllers/jobs/company/getJobDetailByID";
-import { getJobsActive } from "../controllers/jobs/user/getJobsActive";
+// import { getJobsActive } from "../controllers/jobs/user/getJobsActive";
 import { createUserApply } from "../controllers/application/createUserApply";
 import { getCompanyJobs } from "../controllers/application/getCompanyJobs";
+import { jobList } from "../controllers/system_recomendation/joblist";
 
 
 const jobsRoute = new Router();
@@ -34,13 +35,16 @@ jobsRoute.put('/api/jobs/:id/status-active', validateMiddleUser, CompanyOnly, ac
 
 // USER
 // get Jobs Active
-jobsRoute.get('/api/jobs-active', validateMiddleUser, getJobsActive);
+// jobsRoute.get('/api/jobs-active', validateMiddleUser, getJobsActive);
 
 //  get Jobs Detail Active By ID
 jobsRoute.get('/api/jobs-active/:id', validateMiddleUser, getJobsDetailByID);
 
 // Apply Job User
 jobsRoute.post('/api/jobs-active/:id/apply', validateMiddleUser, createUserApply);
+
+// Jobs Recomendation
+jobsRoute.get('/api/jobs-active', validateMiddleUser, jobList);
 
 
 export default jobsRoute
