@@ -41,7 +41,6 @@ async function createUser(req = request, res = response) {
         password: hashPassword,
         confirm_password: hashPassword,
         email_verified: EmailVerifiedStatus.no,
-        // role_id: findRole.name || 1
         role: Role.user
       }
     });
