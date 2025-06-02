@@ -43,7 +43,7 @@ async function jobList(req = request, res = response) {
       return res.status(200).json({
         status: "success",
         message: "AI job recommendations based on skills.",
-        data: aiResponse,
+        data: aiResponse.recommendations,
       });
     }
 

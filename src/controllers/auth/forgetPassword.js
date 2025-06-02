@@ -51,8 +51,6 @@ async function forgetPassword(req = request, res = response) {
       data: {
         email: findEmail.email,
         expiresIn: "1 hours",
-        // TODO saat di deploy token di bawah ini di hapus
-        token: resetToken
       }
     });
   } catch (error) {
