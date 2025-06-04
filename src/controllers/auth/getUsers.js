@@ -7,7 +7,8 @@ async function getUsers(req = request, res = response) {
       select: {
         id: true,
         email: true,
-        role: true
+        role: true,
+        email_verified: true
       }
     });
     res.status(201).json({

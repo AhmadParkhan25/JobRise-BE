@@ -13,6 +13,7 @@ async function getUserByAuth(req = request, res = response) {
         name: true,
         email: true,
         role: true,
+        email_verified: true
       }
     });
     if (!response) {

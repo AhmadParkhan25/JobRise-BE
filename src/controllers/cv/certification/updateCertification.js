@@ -5,7 +5,7 @@ import { getProfileIdByUserId } from "../../../utils/findProfileId";
 async function updateCertification(req = request, res = response) {
   const certificationID = parseInt(req.params.id);
   const userId = req.userId;
-  const { name, issued_by, year, id_credetial_url, description } = req.body;
+  const { name, issued_by, year, id_credential_url, description } = req.body;
   
   try {
     const profileID = await getProfileIdByUserId(userId);
@@ -32,7 +32,7 @@ async function updateCertification(req = request, res = response) {
         name: name,
         issued_by: issued_by,
         year: year,
-        id_credetial_url: id_credetial_url,
+        id_credential_url: id_credential_url,
         description: description,
       },
     });
