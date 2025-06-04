@@ -16,6 +16,7 @@ async function jobList(req = request, res = response) {
         title: true,
         company_name: true,
         company_logo: true,
+        location: true,
         job_type: true,
         salary_min: true,
         salary_max: true,
