@@ -31,19 +31,20 @@ async function jobList(req = request, res = response) {
     const aiResponse = mlResponse.data;
 
     const userSkills = aiResponse.user_skills;
+    const listRecommend = aiResponse.recommendations
     console.log("User Skills from AI Response:", userSkills);
 
-    if (!Array.isArray(userSkills) || userSkills.length === 0) {
+    if (!Array.isArray(userSkills) || userSkills.length === 0 || !Array.isArray(listRecommend) || listRecommend.length === 0) {
       return res.status(200).json({
         status: "success",
-        message: "No skills found for user. Showing all active jobs.",
+        message: "No skills found | Not Recommendation for user. Showing all active jobs.",
         data: allActiveJobs,
       });
     } else {
       return res.status(200).json({
         status: "success",
         message: "AI job recommendations based on skills.",
-        data: aiResponse.recommendations,
+        data: listRecommend,
       });
     }
 
