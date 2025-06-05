@@ -6,10 +6,17 @@ async function deleteFavorite(req = request, res = response) {
   const userId = req.userId;
   const jobId = parseInt(req.params.id);
 
+   if (isNaN(jobId)) {
+    return res.status(400).json({
+      status: "error",
+      message: "Invalid Job ID format.",
+    });
+  }
+
   try {
-    const existingFavorite = await db.favorites.findUnique({
+    const existingFavorite = await db.favorites.findFirst({
       where: {
-        id: jobId,
+        jobId: jobId,
         userId: userId,
       },
     });
@@ -23,7 +30,7 @@ async function deleteFavorite(req = request, res = response) {
 
     await db.favorites.delete({
       where: {
-        id: jobId,
+        id: existingFavorite.id,
       },
     });
 
