@@ -32,7 +32,7 @@ async function updateExperience(req = request, res = response) {
         title,
         company_name,
         start_date: new Date(start_date),
-        end_date: new Date(end_date),
+        end_date: end_date? new Date(end_date): null,
         description,
       },
     });

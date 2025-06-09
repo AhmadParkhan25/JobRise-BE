@@ -47,11 +47,33 @@ async function cvPreview(req = request, res = response) {
         status: "error",
         message: "data CV not found",
       });
-    }
+    };
+
+    const modifiedEducations = cdData.educations.map((edu) => ({
+      ...edu,
+      end_date: edu.end_date === null ? "present" : edu.end_date,
+    }));
+
+    const modifiedExperiences = cdData.experiences.map((exp) => ({
+      ...exp,
+      end_date: exp.end_date === null ? "present" : exp.end_date,
+    }));
+
+    const modifiedProjects = cdData.projects.map((project) => ({
+      ...project,
+      end_date: project.end_date === null ? "present" : project.end_date,
+    }));
+
+    const cdDataFinal = {
+      ...cdData,
+      educations: modifiedEducations,
+      experiences: modifiedExperiences,
+      projects: modifiedProjects,
+    };
 
     res.status(200).json({
       status: "success",
-      data: cdData,
+      data: cdDataFinal,
     });
   } catch (error) {
     console.log(error);

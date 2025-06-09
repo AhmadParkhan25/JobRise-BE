@@ -24,9 +24,14 @@ async function getEducation(req = request, res = response) {
       },
     });
 
+    const modifiedEducations = educations.map((edu) => ({
+      ...edu,
+      end_date: edu.end_date === null ? "present" : edu.end_date,
+    }));
+
     res.status(200).json({
       status: "success",
-      data: educations,
+      data: modifiedEducations,
     });
   } catch (error) {
     console.error(error);

@@ -23,9 +23,14 @@ async function getProject(req = request, res = response) {
       },
     });
 
+    const modifiedProjects = projects.map((project) => ({
+      ...project,
+      end_date: project.end_date === null ? "present" : project.end_date,
+    }));
+
     res.status(200).json({
       status: "success",
-      data: projects,
+      data: modifiedProjects,
     });
   } catch (error) {
     console.error(error);

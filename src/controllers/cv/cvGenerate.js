@@ -33,9 +33,31 @@ async function getCVGenerate(req = request, res = response) {
       });
     }
 
+    const modifiedEducations = cvData.educations.map((edu) => ({
+      ...edu,
+      end_date: edu.end_date === null ? "present" : edu.end_date,
+    }));
+
+    const modifiedExperiences = cvData.experiences.map((exp) => ({
+      ...exp,
+      end_date: exp.end_date === null ? "present" : exp.end_date,
+    }));
+
+    const modifiedProjects = cvData.projects.map((project) => ({
+      ...project,
+      end_date: project.end_date === null ? "present" : project.end_date,
+    }));
+
+    const cvDataFinal = {
+      ...cvData,
+      educations: modifiedEducations,
+      experiences: modifiedExperiences,
+      projects: modifiedProjects,
+    };
+
     res.status(200).json({
       status: "success",
-      data: cvData,
+      data: cvDataFinal,
     });
 
   } catch (error) {

@@ -22,9 +22,14 @@ async function getExperience(req = request, res = response) {
       },
     });
 
+    const modifiedExperiences = experiences.map((exp) => ({
+      ...exp,
+      end_date: exp.end_date === null ? "present" : exp.end_date,
+    }));
+
     res.status(200).json({
       status: "success",
-      data: experiences,
+      data: modifiedExperiences,
     });
   } catch (error) {
     console.error(error);
